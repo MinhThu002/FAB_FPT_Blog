@@ -309,7 +309,7 @@ public class PostServiceImpl implements PostService {
 
         User reactor = userRepository.findLoginUser()
                 .orElseThrow(() -> new Exception("Unauthorized"));
-
+//tao comment
         Comment comment = new Comment()
                 .setPost(post)
                 .setUser(reactor)
