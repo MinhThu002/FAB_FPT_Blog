@@ -54,6 +54,7 @@ public class AdminUserController {
     }
 
 
+
     @PostMapping
     public String createUser(@ModelAttribute CreateUserRequest request, HttpSession session, Model model, RedirectAttributes redirectAttrs) {
         try {
@@ -64,6 +65,7 @@ public class AdminUserController {
                 session.setAttribute("error", String.format("Email is not allowed to access this system. Only emails with domain %s allowed", String.join(", ", BaseConstants.ALLOWED_DOMAINS)));
                 return "redirect:/admin/users";
             }
+
 
             if (userService.checkExistUser(request.getEmail().trim())) {
                 session.setAttribute("error", "Existed email");
@@ -82,7 +84,6 @@ public class AdminUserController {
                 return "redirect:/admin/users";
             }
 
-//
             if (StringUtils.isNotBlank(request.getPhoneNumber())
                     && !RegexUtils.isValidPhoneNumber(request.getPhoneNumber())) {
                 session.setAttribute("error", "Invalid phone number format");
