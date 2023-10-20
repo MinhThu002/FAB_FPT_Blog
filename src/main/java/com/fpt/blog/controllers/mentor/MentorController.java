@@ -59,9 +59,11 @@ public class MentorController {
         try {
             PostResponse post = postService.getPost(request.getPostId());
             if (post == null) {
+                //check xem bai viet do ton tai hay ko//
                 session.setAttribute("error", "Post not found");
                 return "redirect:/mentor/post-requests";
             }
+            //nho service approve bai viet//
             postService.approvePost(post.getId(), request);
         } catch (Exception ex) {
             session.setAttribute("error", ex.getMessage());

@@ -29,6 +29,7 @@ public class AdminUserController {
 
     private final UserService userService;
 
+
     @GetMapping
     public String getAllUser(@ModelAttribute GetAllUsersRequest request, Model model) {
         Page<UserResponse> users = userService.getAllUsersFitlerPaging(request);

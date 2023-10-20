@@ -17,7 +17,7 @@ import lombok.experimental.FieldNameConstants;
 @Accessors(chain = true)
 @FieldNameConstants
 public class Award extends BaseEntity {
-
+//identity//
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;

@@ -33,7 +33,7 @@ public class AdminAwardController {
     @GetMapping
     public String getAllAwards(@ModelAttribute GetAllAwardRequest request, Model model) {
         Page<AwardResponse> awards = awardService.getAlAwardsFilterPaging(request);
-
+//page awards//
         model.addAttribute("search", request.getSearch());
         model.addAttribute("awards", awards.getContent());
         model.addAttribute("pageNumber", awards.getNumber() + 1);
