@@ -268,7 +268,7 @@ public class PostController {
 
         return "redirect:/posts/" + id;
     }
-    //cmt
+    //post cmt
     @PostMapping("{postId}/comments")
     public String commentPost(@PathVariable("postId") long id, @ModelAttribute CommentPostRequest request, HttpSession session) {
         try {
