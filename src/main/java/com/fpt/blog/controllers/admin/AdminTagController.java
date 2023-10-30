@@ -39,7 +39,7 @@ public class AdminTagController {
                 "queryString",
                 String.format("/admin/tags?search=%s", Objects.requireNonNullElse(request.getSearch(), "")));
 
-        return "admin/tags";
+        return "admin/tags" ;
     }
 
     @PostMapping
