@@ -58,7 +58,7 @@ public class AdminCategoryController {
 
     @PostMapping
     public String createCategory(@ModelAttribute CreateCategoryRequest request, Model model, HttpSession session, RedirectAttributes redirectAttributes) {
-        try {
+        try{
 
             redirectAttributes.addFlashAttribute("createRequest", request);
             CategoryResponse cate = categoryService.createCategory(request);
