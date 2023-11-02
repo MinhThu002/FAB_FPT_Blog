@@ -1,0 +1,209 @@
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default.html}">
+<body>
+<div id="page" layout:fragment="content">
+    <main>
+        <div class="container">
+            <h1 class="tt-title-border d-flex justify-content-between">
+                <span>AWARD MANAGEMENT</span>
+                <span data-bs-toggle="modal" data-bs-target="#createCategoryModal"
+                      style="font-size: 30px; cursor: pointer">
+                    <ion-icon name="add-circle-outline"></ion-icon>
+                </span>
+
+                <div style="overflow: auto" class="modal fade" id="createCategoryModal" data-bs-backdrop="static"
+                     data-bs-keyboard="false"
+                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <form class="form-default" method="post" th:action="@{/admin/awards}"
+                                  enctype="multipart/form-data">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">CREATE AWARD</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="form-group required mb-3">
+                                        <label>Image</label>
+                                        <input name="image" class="form-control" type="file" required>
+                                    </div>
+                                    <div class="form-group required mb-3">
+                                        <label>Name</label>
+                                        <input class="form-control" name="name" required
+                                               th:value="${createRequest?.name}">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label>Description</label>
+                                        <textarea class="form-control" name="description"
+                                                  th:value="${createRequest?.description}"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close
+                                    </button>
+                                    <button type="submit" class="btn btn-secondary">Create</button>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+            </h1>
+
+            <div class="mb-5">
+                <form class="filter-form">
+                    <div class="form-group">
+                        <label for="search"> Search </label>
+                        <input type="text" id="search" th:value="${search}" name="search"
+                               placeholder="Enter to search"
+                               class="form-control">
+                    </div>
+                    <button class="btn btn-secondary" type="submit">Filter</button>
+                </form>
+
+            </div>
+            <div class="card p-3">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Created at</th>
+                            <th scope="col">Updated at</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="award, index: ${awards}">
+                            <td th:text="${index.index + 1}"></td>
+                            <td>
+                                <img style="height: 100px; width: 100px; object-fit: contain"
+                                     th:src="${award.image != null ? award.image : '/images/placeholder.png'}"/>
+                            </td>
+                            <td style="min-width: 300px">
+                                <span th:text="${award.name}"></span>
+                            </td>
+                            <td style="min-width: 200px">
+                                <span th:text="${award.description}"></span>
+                            </td>
+                            <td style="min-width: 200px">
+                                <span th:text="${#temporals.format(award.createdAt)}"></span>
+                            </td>
+                            <td style="min-width: 200px">
+                                <span th:text="${#temporals.format(award.updatedAt)}"></span>
+                            </td>
+
+                            <td>
+                                <div class="d-flex align-items-center justify-content-center">
+                                    <div>
+                                        <button class="btn btn-primary ms-2" data-bs-toggle="modal"
+                                                th:data-bs-target="'#updateModal'+ ${award.id}">
+                                            Update
+                                        </button>
+                                        <div style="overflow: auto" class="modal fade"
+                                             th:id="'updateModal'+ ${award.id}" data-bs-backdrop="static"
+                                             data-bs-keyboard="false"
+                                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form class="form-default" method="post"
+                                                          th:action="@{'/admin/awards/' + ${award.id} + '/update'}"
+                                                          enctype="multipart/form-data">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">UPDATE AWARD</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <div class="form-group mb-3">
+                                                                <label>Image</label>
+                                                                <input name="image" class="form-control" type="file">
+                                                            </div>
+                                                            <div class="form-group required mb-3">
+                                                                <label>Name</label>
+                                                                <input class="form-control" name="name" required
+                                                                       th:value="${award?.name}">
+                                                            </div>
+
+                                                            <div class="form-group mb-3">
+                                                                <label>Description</label>
+                                                                <textarea class="form-control" name="description"
+                                                                          th:text="${award?.description}"></textarea>
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-secondary">Update
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                            user
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <button class="btn btn-danger ms-2" data-bs-toggle="modal"
+                                                th:data-bs-target="'#deleteModal'+ ${award.id}">
+                                            Delete
+                                        </button>
+                                        <div style="overflow: auto" class="modal fade"
+                                             th:id="'deleteModal'+ ${award.id}" data-bs-backdrop="static"
+                                             data-bs-keyboard="false"
+                                             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <form class="form-default" method="post"
+                                                          th:action="@{'/admin/awards/' + ${award.id} + '/delete'}">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title">DELETE AWARD</h5>
+                                                            <button type="button" class="btn-close"
+                                                                    data-bs-dismiss="modal"
+                                                                    aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Are you sure to delete award '[[${award.name}]]?'?
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-outline-danger"
+                                                                    data-bs-dismiss="modal">Close
+                                                            </button>
+                                                            <button type="submit" class="btn btn-secondary">Confirm
+                                                            </button>
+                                                        </div>
+                                                    </form>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div th:replace="~{fragments/pagination :: pagination}">
+                    Pagination
+                </div>
+
+                <th:block th:if="${#lists.isEmpty(awards)}">
+                    <div th:replace="~{fragments/no-data :: no-data}">No data</div>
+                </th:block>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
