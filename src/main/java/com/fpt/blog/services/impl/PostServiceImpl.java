@@ -120,15 +120,17 @@ public class PostServiceImpl implements PostService {
     @SneakyThrows
     @Transactional
     public PostResponse approvePost(long id, ApprovePostRequest request) {
+        //check xem bai post do co ton tai hay ko//
         Post post = postRepository.findById(id).orElseThrow(() -> new Exception("Post not found"));
+        //check xem thg mentor duyet bai viet co dang login hay ko//
         User reviewer = userRepository.findLoginUser()
                 .orElseThrow(() -> new Exception("Unauthorized"));
-
+//setlist award cho thg bai viet//
         Set<PostAward> awards = new HashSet<>();
         for (long awardId : request.getAwardIds()) {
             Award award = awardRepository.findById(awardId)
                     .orElseThrow(() -> new Exception("Award not found"));
-
+            //dat thg post vao muc dac sac do//
             awards.add(new PostAward()
                     .setPost(post)
                     .setAward(award)

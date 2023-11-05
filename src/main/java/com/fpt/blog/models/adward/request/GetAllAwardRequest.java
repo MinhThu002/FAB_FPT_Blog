@@ -23,6 +23,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class GetAllAwardRequest extends BaseFilterRequest<Award> {
 
+
     private String search;
 
     @Override
