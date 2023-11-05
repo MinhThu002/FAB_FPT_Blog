@@ -53,6 +53,7 @@ public class AdminUserController {
         return "admin/users";
     }
 
+
     @PostMapping
     public String createUser(@ModelAttribute CreateUserRequest request, HttpSession session, Model model, RedirectAttributes redirectAttrs) {
         try {
