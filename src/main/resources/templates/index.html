@@ -1,0 +1,78 @@
+<!doctype html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default.html}">
+<body>
+<div id="page" layout:fragment="content">
+    <main>
+        <div class="container">
+            <div class="row gy-5">
+                <div class="col-lg-8">
+                    <!--            Bài viết nổi bật-->
+                    <div class="mb-5">
+                        <h1 class="tt-title-border">
+                            FEATURED POSTS
+                        </h1>
+                        <div>
+                            <div th:if="${featuredPosts.isEmpty()}">
+                                <div th:replace="~{fragments/no-data :: no-data}">No data</div>
+                            </div>
+
+                            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    <button th:each="post, idx: ${featuredPosts}" type="button"
+                                            data-bs-target="#carouselExampleCaptions" th:data-bs-slide-to="${idx.index}"
+                                            th:classappend="${idx.index == 0 ? 'active' : ''}"></button>
+                                </div>
+                                <div class="carousel-inner">
+                                    <div class="carousel-item" th:each="post,idx: ${featuredPosts}" th:classappend="${idx.index == 0 ? 'active' : ''}">
+                                        <img style="height: 500px; object-fit: cover"
+                                             th:src="${post.thumbnail != null ? post.thumbnail : '/images/single-topic-img01.jpg'}"
+                                             class="d-block w-100" alt="...">
+                                        <div class="carousel-caption d-none d-md-block feature-post-caption">
+                                            <a th:href="@{'/posts/' + post.id}"><h5 th:text="${post.title}"></h5></a>
+                                            <p>
+                                                <a th:href="@{'/users/' + ${post.user?.id}}" th:text="${post.user?.name}"></a> |
+                                                <a th:href="@{'/posts?categoryId=' + ${post.category?.id}}" th:text="${post.category?.name}"></a>
+                                            </p>
+                                            <p th:text="${post.description}"></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button class="carousel-control-prev" type="button"
+                                        data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </button>
+                                <button class="carousel-control-next" type="button"
+                                        data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--            Bài viết nổi bật-->
+
+                    <div>
+                        <h1 class="tt-title-border d-flex justify-content-between align-items-center">
+                            <span>NEW POSTS</span>
+                            <a class="btn btn-secondary ms-auto" th:href="@{/posts}">View all</a>
+                        </h1>
+                        <div th:replace="~{fragments/post-list :: post-list}">Post list</div>
+
+                        <div th:replace="~{fragments/pagination :: pagination}">
+                            Pagination
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4 mb-5">
+                    <div th:replace="~{fragments/sidebar :: sidebar}">Side bar</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>

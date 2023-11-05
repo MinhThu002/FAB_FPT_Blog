@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.w3.org/1999/xhtml">
+<head th:replace="~{fragments/import :: import}"></head>
+<body>
+<div>
+    <div th:replace="~{fragments/header :: header}"></div>
+    <div style="padding: 70px 0px; min-height: 100vh">
+        <div th:replace="~{fragments/message :: message}"></div>
+        <main layout:fragment="content" class="mt-5"></main>
+    </div>
+    <div th:replace="~{fragments/footer :: footer}"></div>
+</div>
+</body>
+</html>
