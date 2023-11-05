@@ -16,7 +16,7 @@
             </a>
             <span class="post-item-description" th:text="${post?.description}"></span>
             <p class="post-item-category">
-              <a th:href="@{'posts?categoryId=' + ${post?.category?.id}}"><span th:text="${post?.category?.name}"> </span></a> | Đăng bởi <a th:href="@{'users/' + ${post?.user?.id}}"><span th:text="${post?.user?.name}"></span></a>
+              <a th:href="@{'/posts?categoryId=' + ${post?.category?.id}}"><span th:text="${post?.category?.name}"> </span></a> | Đăng bởi <a th:href="@{'/users/' + ${post?.user?.id}}"><span th:text="${post?.user?.name}"></span></a>
             </p>
             <p class="post-item-tags">
               <a th:each="tag: ${post?.tags}" th:href="@{'/posts?tag=' + ${tag?.name}}">

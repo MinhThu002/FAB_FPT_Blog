@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .userDetailsService(userDetailsService())
                 .and()
                 .csrf().disable()
+                //root
                 .oauth2Login()
                 .loginPage("/auth/login")
                 .failureUrl("/auth/login-error")
