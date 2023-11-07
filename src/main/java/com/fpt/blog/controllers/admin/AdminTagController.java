@@ -26,6 +26,7 @@ public class AdminTagController {
 
 
     @GetMapping
+    //get all tag
     public String getAllTags(@ModelAttribute GetAllTagRequest request, Model model) {
         Page<TagResponse> tags = tagService.getAllTagsFilterPaging(request);
 
