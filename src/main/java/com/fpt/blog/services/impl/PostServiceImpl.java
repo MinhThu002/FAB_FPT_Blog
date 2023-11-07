@@ -128,7 +128,7 @@ public class PostServiceImpl implements PostService {
         for (long awardId : request.getAwardIds()) {
             Award award = awardRepository.findById(awardId)
                     .orElseThrow(() -> new Exception("Award not found"));
-
+//set cac awards//
             awards.add(new PostAward()
                     .setPost(post)
                     .setAward(award)
