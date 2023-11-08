@@ -36,7 +36,7 @@ public class AdminCategoryController {
 
 
     @GetMapping
-    public String getAllCategories(@ModelAttribute GetAllCategoryRequest request, Model model) {
+    public String getAllCategories (@ModelAttribute GetAllCategoryRequest request, Model model) {
         Page<CategoryResponse> categories = categoryService.getAllCategoriesFilterPaging(request);
 
         model.addAttribute("search", request.getSearch());
