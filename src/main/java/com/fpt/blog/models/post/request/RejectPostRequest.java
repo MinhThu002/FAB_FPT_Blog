@@ -15,5 +15,6 @@ public class RejectPostRequest {
 
     private long postId;
 
+
     private String reason;
 }
